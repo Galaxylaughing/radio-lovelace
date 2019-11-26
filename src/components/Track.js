@@ -5,9 +5,13 @@ import "./styles/Track.css";
 
 // Here we use destructuring to extract the props into separate variables
 // See https://wesbos.com/destructuring-objects/
-const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCallback } ) => {
+const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCallback, moveToTopCallback } ) => {
   const onCheckboxChange = () => {
     toggleFavoriteCallback( title );
+  }
+
+  const onMoveToTopClick = () => {
+    moveToTopCallback( title );
   }
   
   return (
@@ -24,6 +28,7 @@ const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCal
       <p className="track--playtime">{ playtime }</p>
       <button
         className="track--control track--to-top"
+        onClick={ onMoveToTopClick }
         >
         <span role="img" aria-label="send to top">🔝</span>
       </button>
@@ -43,6 +48,7 @@ Track.propTypes = {
   albumart: PropTypes.string,
   favorite: PropTypes.bool,
   toggleFavoriteCallback: PropTypes.func.isRequired,
+  moveToTopCallback: PropTypes.func.isRequired,
 }
 
 export default Track;

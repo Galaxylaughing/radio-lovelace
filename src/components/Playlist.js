@@ -45,6 +45,24 @@ class Playlist extends React.Component {
     this.setState( { tracks: tracks } );
   }
 
+  moveToTop = ( trackTitle ) => {
+    // find specific track
+    const { tracks } = this.state;
+    const trackToMove = tracks.find( ( track ) => track.title === trackTitle );
+
+    // if the track is not already at top of the list
+    if ( tracks[0].title !== trackTitle ) {
+      // move that track to top of the list:
+      // slice out item
+      const trackIndex = tracks.indexOf(trackToMove);
+      tracks.splice(trackIndex, 1);
+      // add back to beginning
+      tracks.unshift(trackToMove);
+    }
+    // save and re-render
+    this.setState( {tracks: tracks } );
+  }
+
   trackElements = () => {
     return this.state.tracks.map((track, i) => {
       // We use "spread syntax" here to pass in all the properties of 
@@ -54,6 +72,7 @@ class Playlist extends React.Component {
           key={track.id}
           {...track}
           toggleFavoriteCallback={ this.toggleFavorite }
+          moveToTopCallback={ this.moveToTop }
         />
       );
     });

@@ -30,7 +30,7 @@ class Track extends React.Component {
         <input
           type="checkbox"
           className="track--favorite"
-          defaultChecked={ this.favorite }
+          defaultChecked={ this.state.favorite }
           onChange={ this.onCheckboxChange }
         />
         <p className="track--artist">{ this.artist }</p>

@@ -15,7 +15,6 @@ const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCal
   }
 
   const onSwapListClick = () => {
-    console.log("switching song to other playlist");
     swapListCallback( title );
   }
   

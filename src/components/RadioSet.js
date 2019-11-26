@@ -75,16 +75,29 @@ class RadioSet extends React.Component {
       playlistAffected.tracks = filteredTracks;
     }
 
+    // save and re-render
     this.setState( { playlists: playlists } );
   }
 
   swapList = ( trackTitle ) => {
-    console.log(trackTitle, 'reached RadioSet!');
+    // find the specific playlist
+    const { playlists } = this.state;
+    const playlistAffected = this.findListWithTrack( playlists, trackTitle );
 
-    // find playlist
-    // find track
+    // find specific track in playlist
+    const { tracks } = playlistAffected;
+    const trackToMove = this.findTrackInList( tracks, trackTitle );
+    
     // delete track from playlist
+    let filteredTracks = tracks.filter(track => track.title !== trackTitle);
+    playlistAffected.tracks = filteredTracks;
+
     // add track to beginning of other playlist
+    let otherList = playlists.find((playlist) => playlist.side !== playlistAffected.side)
+    otherList.tracks.unshift(trackToMove);
+
+    // save and re-render
+    this.setState( { playlists: playlists } );
   }
 
   playlistElements = () => {

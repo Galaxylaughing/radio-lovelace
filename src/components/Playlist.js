@@ -37,7 +37,6 @@ const Playlist = (props) => {
     props.moveToTopCallback(trackTitle);
   }
   const swapListCallback = (trackTitle) => {
-    console.log('reached Playlist');
     props.swapListCallback(trackTitle);
   }
 

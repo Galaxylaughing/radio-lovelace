@@ -35,6 +35,16 @@ class Playlist extends React.Component {
     }
   }
 
+  toggleFavorite = (trackTitle) => {
+    // find specific track
+    const { tracks } = this.state;
+    const trackToToggle = tracks.find((track) => track.title === trackTitle);
+    // toggle favorite
+    trackToToggle.favorite = !Boolean(trackToToggle.favorite);
+    // save and re-render
+    this.setState( { tracks: tracks } );
+  }
+
   trackElements = () => {
     return this.state.tracks.map((track, i) => {
       // We use "spread syntax" here to pass in all the properties of 
@@ -43,6 +53,7 @@ class Playlist extends React.Component {
         <Track
           key={track.id}
           {...track}
+          toggleFavoriteCallback={ this.toggleFavorite }
         />
       );
     });

@@ -5,57 +5,44 @@ import "./styles/Track.css";
 
 // Here we use destructuring to extract the props into separate variables
 // See https://wesbos.com/destructuring-objects/
-class Track extends React.Component {
-  constructor( { title, artist, playtime, albumart, favorite } ) {
-    super();
-    this.title = title;
-    this.artist = artist;
-    this.playtime = playtime;
-    this.albumart = albumart;
-    this.state = {
-      favorite: Boolean( favorite ),
-    }
+const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCallback } ) => {
+  const onCheckboxChange = () => {
+    toggleFavoriteCallback( title );
   }
   
-  onCheckboxChange = () => {
-    // toggle favorite state
-    this.setState( { favorite: !this.state.favorite } );
-  }
-  
-  render() {
-    return (
-      <li className="track">
-        <img className="track--albumart" alt={ `album art for ${ this.title }` } src={ this.albumart } />
-        <h3 className="track--title">{ this.title }</h3>
-        <input
-          type="checkbox"
-          className="track--favorite"
-          defaultChecked={ this.state.favorite }
-          onChange={ this.onCheckboxChange }
-        />
-        <p className="track--artist">{ this.artist }</p>
-        <p className="track--playtime">{ this.playtime }</p>
-        <button
-          className="track--control track--to-top"
-          >
-          <span role="img" aria-label="send to top">🔝</span>
-        </button>
-        <button
-          className="track--control track--switch"
-          >
-          <span role="img" aria-label="switch lists">↔</span>
-        </button>
-      </li>
-    );
-  }
+  return (
+    <li className="track">
+      <img className="track--albumart" alt={ `album art for ${ title }` } src={ albumart } />
+      <h3 className="track--title">{ title }</h3>
+      <input
+        type="checkbox"
+        className="track--favorite"
+        defaultChecked={ favorite }
+        onChange={ onCheckboxChange }
+      />
+      <p className="track--artist">{ artist }</p>
+      <p className="track--playtime">{ playtime }</p>
+      <button
+        className="track--control track--to-top"
+        >
+        <span role="img" aria-label="send to top">🔝</span>
+      </button>
+      <button
+        className="track--control track--switch"
+        >
+        <span role="img" aria-label="switch lists">↔</span>
+      </button>
+    </li>
+  );
 };
 
 Track.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   artist: PropTypes.string,
   playtime: PropTypes.string,
   albumart: PropTypes.string,
   favorite: PropTypes.bool,
+  toggleFavoriteCallback: PropTypes.func.isRequired,
 }
 
 export default Track;

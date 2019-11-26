@@ -36,7 +36,7 @@ class Playlist extends React.Component {
   }
 
   trackElements = () => {
-    return this.tracks.map((track, i) => {
+    return this.state.tracks.map((track, i) => {
       // We use "spread syntax" here to pass in all the properties of 
       // the variable 'track' as props. Go look it up!
       return (
@@ -64,8 +64,14 @@ class Playlist extends React.Component {
 }
 
 Playlist.propTypes = {
-  tracks: PropTypes.array,
-  side: PropTypes.string,
+  tracks: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    artist: PropTypes.string.isRequired,
+    playtime: PropTypes.string.isRequired,
+    albumart: PropTypes.string,
+    favorite: PropTypes.bool,
+  })).isRequired,
+  side: PropTypes.string.isRequired,
 }
 
 export default Playlist;

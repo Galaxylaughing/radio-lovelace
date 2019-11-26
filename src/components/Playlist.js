@@ -26,8 +26,6 @@ const calculatePlayTime = (tracks) => {
 }
 
 const Playlist = (props) => {
-  console.log(props);
-
   const tracks = props.tracks;
   const trackCount = tracks.length;
   const playtime = calculatePlayTime(tracks);
@@ -38,34 +36,6 @@ const Playlist = (props) => {
   const moveToTopCallback = (trackTitle) => {
     props.moveToTopCallback(trackTitle);
   }
-
-  // toggleFavorite = (trackTitle) => {
-  //   // find specific track
-  //   const { tracks } = this.state;
-  //   const trackToToggle = tracks.find((track) => track.title === trackTitle);
-  //   // toggle favorite
-  //   trackToToggle.favorite = !Boolean(trackToToggle.favorite);
-  //   // save and re-render
-  //   this.setState( { tracks: tracks } );
-  // }
-
-  // moveToTop = ( trackTitle ) => {
-  //   // find specific track
-  //   const { tracks } = this.state;
-  //   const trackToMove = tracks.find( ( track ) => track.title === trackTitle );
-
-  //   // if the track is not already at top of the list
-  //   if ( tracks[0].title !== trackTitle ) {
-  //     // move that track to top of the list:
-  //     // slice out item
-  //     const trackIndex = tracks.indexOf(trackToMove);
-  //     tracks.splice(trackIndex, 1);
-  //     // add back to beginning
-  //     tracks.unshift(trackToMove);
-  //   }
-  //   // save and re-render
-  //   this.setState( {tracks: tracks } );
-  // }
 
   const trackElements = tracks.map((track, i) => {
     // We use "spread syntax" here to pass in all the properties of 

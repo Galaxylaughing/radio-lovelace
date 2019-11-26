@@ -26,42 +26,44 @@ class RadioSet extends React.Component {
     return {morningTracks, eveningTracks};
   }
 
-  toggleFavorite = ( trackTitle ) => {
-    // find the specific playlist
-    const { playlists } = this.state;
+  findListWithTrack = ( playlists, trackTitle ) => {
     const playlistAffected = playlists.find(
       (playlist) => playlist.tracks.find(
         (track) => track.title === trackTitle
       )
     );
-    const playlistAffectedName = playlistAffected.side;
+    return playlistAffected;
+  }
+
+  findTrackInList = ( tracks, trackTitle ) => {
+    return tracks.find((track) => track.title === trackTitle);
+  }
+
+  toggleFavorite = ( trackTitle ) => {
+    // find the specific playlist
+    const { playlists } = this.state;
+    const playlistAffected = this.findListWithTrack( playlists, trackTitle );
 
     // find specific track in playlist
     const { tracks } = playlistAffected;
-    const trackToToggle = tracks.find((track) => track.title === trackTitle);
+    const trackToToggle = this.findTrackInList( tracks, trackTitle );
 
     // toggle favorite
     trackToToggle.favorite = !Boolean(trackToToggle.favorite);
 
     // save and re-render
     playlistAffected.tracks = tracks;
-    playlists[playlistAffectedName] = playlistAffected;
     this.setState( { playlists: playlists } );
   }
 
   moveToTop = ( trackTitle ) => {
     // find the specific playlist
     const { playlists } = this.state;
-    const playlistAffected = playlists.find(
-      (playlist) => playlist.tracks.find(
-        (track) => track.title === trackTitle
-      )
-    );
-    const playlistAffectedName = playlistAffected.side;
+    const playlistAffected = this.findListWithTrack( playlists, trackTitle );
 
     // find specific track in playlist
     const { tracks } = playlistAffected;
-    const trackToMove = tracks.find((track) => track.title === trackTitle);
+    const trackToMove = this.findTrackInList( tracks, trackTitle );
 
     // if the track is not already at top of the list
     if ( tracks[0].title !== trackTitle ) {
@@ -72,10 +74,8 @@ class RadioSet extends React.Component {
       // add back to beginning
       tracks.unshift(trackToMove);
     }
-    
-    // save and re-render
+
     playlistAffected.tracks = tracks;
-    playlists[playlistAffectedName] = playlistAffected;
     this.setState( { playlists: playlists } );
   }
 

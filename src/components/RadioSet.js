@@ -42,10 +42,10 @@ class RadioSet extends React.Component {
 
     // toggle favorite
     trackToToggle.favorite = !Boolean(trackToToggle.favorite);
-    playlistAffected.tracks = tracks;
-    playlists[playlistAffectedName] = playlistAffected;
 
     // save and re-render
+    playlistAffected.tracks = tracks;
+    playlists[playlistAffectedName] = playlistAffected;
     this.setState( { playlists: playlists } );
   }
 
@@ -72,6 +72,7 @@ class RadioSet extends React.Component {
       // add back to beginning
       tracks.unshift(trackToMove);
     }
+    
     // save and re-render
     playlistAffected.tracks = tracks;
     playlists[playlistAffectedName] = playlistAffected;

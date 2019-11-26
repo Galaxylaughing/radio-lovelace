@@ -18,12 +18,11 @@ class Track extends React.Component {
   }
   
   onCheckboxChange = () => {
+    // toggle favorite state
     this.setState( { favorite: !this.state.favorite } );
   }
   
   render() {
-    console.log( this.title )
-    console.log( this.state.favorite );
     return (
       <li className="track">
         <img className="track--albumart" alt={ `album art for ${ this.title }` } src={ this.albumart } />

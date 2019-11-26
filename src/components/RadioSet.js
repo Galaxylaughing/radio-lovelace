@@ -68,19 +68,23 @@ class RadioSet extends React.Component {
     // if the track is not already at top of the list
     if ( tracks[0].title !== trackTitle ) {
       // move that track to top of the list:
-      // slice out item
-      const trackIndex = tracks.indexOf(trackToMove);
-      tracks.splice(trackIndex, 1);
+      // remove item
+      let filteredTracks = tracks.filter(track => track.title !== trackTitle);
       // add back to beginning
-      tracks.unshift(trackToMove);
+      filteredTracks.unshift(trackToMove);
+      playlistAffected.tracks = filteredTracks;
     }
 
-    playlistAffected.tracks = tracks;
     this.setState( { playlists: playlists } );
   }
 
   swapList = ( trackTitle ) => {
     console.log(trackTitle, 'reached RadioSet!');
+
+    // find playlist
+    // find track
+    // delete track from playlist
+    // add track to beginning of other playlist
   }
 
   playlistElements = () => {

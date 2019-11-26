@@ -28,9 +28,11 @@ const calculatePlayTime = (tracks) => {
 class Playlist extends React.Component {
   constructor(props) {
     super(props);
-    this.tracks = props.tracks;
     this.trackCount = props.tracks.length;
     this.playtime = calculatePlayTime(props.tracks);
+    this.state = {
+      tracks: props.tracks,
+    }
   }
 
   trackElements = () => {

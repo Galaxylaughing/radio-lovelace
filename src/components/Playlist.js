@@ -27,15 +27,16 @@ const calculatePlayTime = (tracks) => {
 
 const Playlist = (props) => {
   console.log(props);
+
   const tracks = props.tracks;
   const trackCount = tracks.length;
   const playtime = calculatePlayTime(tracks);
 
   const toggleFavoriteCallback = (playlistSide, trackTitle) => {
-    this.props.toggleFavoriteCallback(playlistSide, trackTitle);
+    props.toggleFavoriteCallback(playlistSide, trackTitle);
   }
   const moveToTopCallback = (playlistSide, trackTitle) => {
-    this.props.moveToTopCallback(playlistSide, trackTitle);
+    props.moveToTopCallback(playlistSide, trackTitle);
   }
 
   // toggleFavorite = (trackTitle) => {
@@ -101,6 +102,8 @@ Playlist.propTypes = {
     favorite: PropTypes.bool,
   })).isRequired,
   side: PropTypes.string.isRequired,
+  toggleFavoriteCallback: PropTypes.func.isRequired,
+  moveToTopCallback: PropTypes.func.isRequired,
 }
 
 export default Playlist;

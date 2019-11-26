@@ -6,27 +6,36 @@ import "./styles/Track.css";
 // Here we use destructuring to extract the props into separate variables
 // See https://wesbos.com/destructuring-objects/
 class Track extends React.Component {
-  constructor({title, artist, playtime, albumart, favorite}) {
+  constructor( { title, artist, playtime, albumart, favorite } ) {
     super();
     this.title = title;
     this.artist = artist;
     this.playtime = playtime;
     this.albumart = albumart;
-    this.favorite = favorite;
+    this.state = {
+      favorite: Boolean( favorite ),
+    }
   }
-
+  
+  onCheckboxChange = () => {
+    this.setState( { favorite: !this.state.favorite } );
+  }
+  
   render() {
+    console.log( this.title )
+    console.log( this.state.favorite );
     return (
       <li className="track">
-        <img className="track--albumart" alt={`album art for ${this.title}`} src={this.albumart} />
-        <h3 className="track--title">{this.title}</h3>
+        <img className="track--albumart" alt={ `album art for ${ this.title }` } src={ this.albumart } />
+        <h3 className="track--title">{ this.title }</h3>
         <input
           type="checkbox"
           className="track--favorite"
-          checked={this.favorite}
+          defaultChecked={ this.favorite }
+          onChange={ this.onCheckboxChange }
         />
-        <p className="track--artist">{this.artist}</p>
-        <p className="track--playtime">{this.playtime}</p>
+        <p className="track--artist">{ this.artist }</p>
+        <p className="track--playtime">{ this.playtime }</p>
         <button
           className="track--control track--to-top"
           >

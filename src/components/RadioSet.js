@@ -79,6 +79,10 @@ class RadioSet extends React.Component {
     this.setState( { playlists: playlists } );
   }
 
+  swapList = ( trackTitle ) => {
+    console.log(trackTitle, 'reached RadioSet!');
+  }
+
   playlistElements = () => {
     return this.state.playlists.map((playlist, i) => {
       return (
@@ -88,6 +92,7 @@ class RadioSet extends React.Component {
           tracks={ playlist.tracks }
           toggleFavoriteCallback={ this.toggleFavorite }
           moveToTopCallback={ this.moveToTop }
+          swapListCallback={ this.swapList }
         />
       );
     });

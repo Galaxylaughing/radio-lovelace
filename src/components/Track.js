@@ -5,13 +5,18 @@ import "./styles/Track.css";
 
 // Here we use destructuring to extract the props into separate variables
 // See https://wesbos.com/destructuring-objects/
-const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCallback, moveToTopCallback } ) => {
+const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCallback, moveToTopCallback, swapListCallback } ) => {
   const onCheckboxChange = () => {
     toggleFavoriteCallback( title );
   }
 
   const onMoveToTopClick = () => {
     moveToTopCallback( title );
+  }
+
+  const onSwapListClick = () => {
+    console.log("switching song to other playlist");
+    swapListCallback( title );
   }
   
   return (
@@ -34,6 +39,7 @@ const Track = ( { title, artist, playtime, albumart, favorite, toggleFavoriteCal
       </button>
       <button
         className="track--control track--switch"
+        onClick={ onSwapListClick }
         >
         <span role="img" aria-label="switch lists">↔</span>
       </button>
@@ -49,6 +55,7 @@ Track.propTypes = {
   favorite: PropTypes.bool,
   toggleFavoriteCallback: PropTypes.func.isRequired,
   moveToTopCallback: PropTypes.func.isRequired,
+  swapListCallback: PropTypes.func.isRequired,
 }
 
 export default Track;

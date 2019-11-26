@@ -36,6 +36,10 @@ const Playlist = (props) => {
   const moveToTopCallback = (trackTitle) => {
     props.moveToTopCallback(trackTitle);
   }
+  const swapListCallback = (trackTitle) => {
+    console.log('reached Playlist');
+    props.swapListCallback(trackTitle);
+  }
 
   const trackElements = tracks.map((track, i) => {
     // We use "spread syntax" here to pass in all the properties of 
@@ -46,6 +50,7 @@ const Playlist = (props) => {
         {...track}
         toggleFavoriteCallback={ toggleFavoriteCallback }
         moveToTopCallback={ moveToTopCallback }
+        swapListCallback={ swapListCallback }
       />
     );
   });
@@ -74,6 +79,7 @@ Playlist.propTypes = {
   side: PropTypes.string.isRequired,
   toggleFavoriteCallback: PropTypes.func.isRequired,
   moveToTopCallback: PropTypes.func.isRequired,
+  swapListCallback: PropTypes.func.isRequired,
 }
 
 export default Playlist;

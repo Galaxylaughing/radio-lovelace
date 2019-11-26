@@ -27,8 +27,6 @@ class RadioSet extends React.Component {
   }
 
   toggleFavorite = ( trackTitle ) => {
-    console.log('reached RadioSet: about to toggle favorite');
-
     // find the specific playlist
     const { playlists } = this.state;
     const playlistAffected = playlists.find(
@@ -38,14 +36,9 @@ class RadioSet extends React.Component {
     );
     const playlistAffectedName = playlistAffected.side;
 
-    console.log(playlistAffected);
-
     // find specific track in playlist
     const { tracks } = playlistAffected;
     const trackToToggle = tracks.find((track) => track.title === trackTitle);
-
-    console.log(tracks);
-    console.log(trackToToggle);
 
     // toggle favorite
     trackToToggle.favorite = !Boolean(trackToToggle.favorite);
@@ -57,7 +50,32 @@ class RadioSet extends React.Component {
   }
 
   moveToTop = ( trackTitle ) => {
-    console.log('reached RadioSet: about to move to top');
+    // find the specific playlist
+    const { playlists } = this.state;
+    const playlistAffected = playlists.find(
+      (playlist) => playlist.tracks.find(
+        (track) => track.title === trackTitle
+      )
+    );
+    const playlistAffectedName = playlistAffected.side;
+
+    // find specific track in playlist
+    const { tracks } = playlistAffected;
+    const trackToMove = tracks.find((track) => track.title === trackTitle);
+
+    // if the track is not already at top of the list
+    if ( tracks[0].title !== trackTitle ) {
+      // move that track to top of the list:
+      // slice out item
+      const trackIndex = tracks.indexOf(trackToMove);
+      tracks.splice(trackIndex, 1);
+      // add back to beginning
+      tracks.unshift(trackToMove);
+    }
+    // save and re-render
+    playlistAffected.tracks = tracks;
+    playlists[playlistAffectedName] = playlistAffected;
+    this.setState( { playlists: playlists } );
   }
 
   playlistElements = () => {

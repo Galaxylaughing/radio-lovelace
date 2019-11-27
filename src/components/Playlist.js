@@ -37,7 +37,7 @@ const Playlist = (props) => {
   const moveToTopCallback = (playlist, trackTitle) => {
     props.moveToTopCallback(playlist, trackTitle);
   }
-  
+
   const swapListCallback = (playlist, trackTitle) => {
     props.swapListCallback(playlist, trackTitle);
   }
@@ -75,6 +75,7 @@ Playlist.propTypes = {
     title: PropTypes.string.isRequired,
     artist: PropTypes.string.isRequired,
     playtime: PropTypes.string.isRequired,
+    seconds: PropTypes.number,
     albumart: PropTypes.string,
     favorite: PropTypes.bool,
     playlistName: PropTypes.string,

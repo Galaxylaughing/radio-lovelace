@@ -61,6 +61,7 @@ Track.propTypes = {
   title: PropTypes.string.isRequired,
   artist: PropTypes.string,
   playtime: PropTypes.string,
+  seconds: PropTypes.number,
   albumart: PropTypes.string,
   favorite: PropTypes.bool,
   playlistName: PropTypes.string.isRequired,

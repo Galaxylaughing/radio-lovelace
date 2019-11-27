@@ -30,14 +30,14 @@ const Playlist = (props) => {
   const trackCount = tracks.length;
   const playtime = calculatePlayTime(tracks);
 
-  const toggleFavoriteCallback = (trackTitle) => {
-    props.toggleFavoriteCallback(trackTitle);
+  const toggleFavoriteCallback = (playlist, trackTitle) => {
+    props.toggleFavoriteCallback(playlist, trackTitle);
   }
-  const moveToTopCallback = (trackTitle) => {
-    props.moveToTopCallback(trackTitle);
+  const moveToTopCallback = (playlist, trackTitle) => {
+    props.moveToTopCallback(playlist, trackTitle);
   }
-  const swapListCallback = (trackTitle) => {
-    props.swapListCallback(trackTitle);
+  const swapListCallback = (playlist, trackTitle) => {
+    props.swapListCallback(playlist, trackTitle);
   }
 
   const trackElements = tracks.map((track, i) => {
@@ -47,6 +47,7 @@ const Playlist = (props) => {
       <Track
         key={track.id}
         {...track}
+        playlistName={ props.side }
         toggleFavoriteCallback={ toggleFavoriteCallback }
         moveToTopCallback={ moveToTopCallback }
         swapListCallback={ swapListCallback }
@@ -74,6 +75,7 @@ Playlist.propTypes = {
     playtime: PropTypes.string.isRequired,
     albumart: PropTypes.string,
     favorite: PropTypes.bool,
+    playlistName: PropTypes.string,
   })).isRequired,
   side: PropTypes.string.isRequired,
   toggleFavoriteCallback: PropTypes.func.isRequired,

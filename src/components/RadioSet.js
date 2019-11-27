@@ -26,23 +26,22 @@ class RadioSet extends React.Component {
     return {morningTracks, eveningTracks};
   }
 
-  findListWithTrack = ( playlists, trackTitle ) => {
-    const playlistAffected = playlists.find(
-      (playlist) => playlist.tracks.find(
-        (track) => track.title === trackTitle
-      )
-    );
-    return playlistAffected;
+  findPlaylist = ( list, playlistSide ) => {
+    return list.find((playlist) => playlist.side === playlistSide);
   }
 
   findTrackInList = ( tracks, trackTitle ) => {
     return tracks.find((track) => track.title === trackTitle);
   }
 
-  toggleFavorite = ( trackTitle ) => {
+  removeTrackFromList = ( list, trackTitle ) => {
+    return list.filter(track => track.title !== trackTitle );
+  }
+
+  toggleFavorite = ( playlistSide, trackTitle ) => {
     // find the specific playlist
     const { playlists } = this.state;
-    const playlistAffected = this.findListWithTrack( playlists, trackTitle );
+    const playlistAffected = this.findPlaylist( playlists, playlistSide );
 
     // find specific track in playlist
     const { tracks } = playlistAffected;
@@ -56,10 +55,10 @@ class RadioSet extends React.Component {
     this.setState( { playlists: playlists } );
   }
 
-  moveToTop = ( trackTitle ) => {
+  moveToTop = ( playlistSide, trackTitle ) => {
     // find the specific playlist
     const { playlists } = this.state;
-    const playlistAffected = this.findListWithTrack( playlists, trackTitle );
+    const playlistAffected = this.findPlaylist( playlists, playlistSide );
 
     // find specific track in playlist
     const { tracks } = playlistAffected;
@@ -69,7 +68,7 @@ class RadioSet extends React.Component {
     if ( tracks[0].title !== trackTitle ) {
       // move that track to top of the list:
       // remove item
-      let filteredTracks = tracks.filter(track => track.title !== trackTitle);
+      let filteredTracks = this.removeTrackFromList( tracks, trackTitle );
       // add back to beginning
       filteredTracks.unshift(trackToMove);
       playlistAffected.tracks = filteredTracks;
@@ -79,21 +78,24 @@ class RadioSet extends React.Component {
     this.setState( { playlists: playlists } );
   }
 
-  swapList = ( trackTitle ) => {
+  swapList = ( playlistSide, trackTitle ) => {
     // find the specific playlist
     const { playlists } = this.state;
-    const playlistAffected = this.findListWithTrack( playlists, trackTitle );
+    const playlistAffected = this.findPlaylist( playlists, playlistSide );
 
     // find specific track in playlist
     const { tracks } = playlistAffected;
     const trackToMove = this.findTrackInList( tracks, trackTitle );
     
     // delete track from playlist
-    let filteredTracks = tracks.filter(track => track.title !== trackTitle);
+    let filteredTracks = this.removeTrackFromList( tracks, trackTitle );
     playlistAffected.tracks = filteredTracks;
 
-    // add track to beginning of other playlist
+    // find new playlist
     let otherList = playlists.find((playlist) => playlist.side !== playlistAffected.side)
+    // assign track to new playlist
+    trackToMove.playlistName = otherList.side;
+    // add track to beginning of other playlist
     otherList.tracks.unshift(trackToMove);
 
     // save and re-render

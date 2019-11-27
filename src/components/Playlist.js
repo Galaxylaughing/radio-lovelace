@@ -33,9 +33,11 @@ const Playlist = (props) => {
   const toggleFavoriteCallback = (playlist, trackTitle) => {
     props.toggleFavoriteCallback(playlist, trackTitle);
   }
+
   const moveToTopCallback = (playlist, trackTitle) => {
     props.moveToTopCallback(playlist, trackTitle);
   }
+  
   const swapListCallback = (playlist, trackTitle) => {
     props.swapListCallback(playlist, trackTitle);
   }
